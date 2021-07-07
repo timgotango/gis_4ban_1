@@ -137,6 +137,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = [
+    BASE_DIR / "static", # 최상위 폴더 안에 static 경로로서 인식하겠다 / ctrl b 누르면 소스코드 출처 볼 수 있다.
+]
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
