@@ -5,13 +5,20 @@
 
     <div style="margin: 2rem; text-align: center;" >
         <h1>HTTP METHOD</h1>
-{# form 태그를 만들어 POST 방식이라고 정의 -> 버튼을 만들기 위해 input 태그 넣음 (제출 버튼) + csrf_token #}
+
+        {# form 태그를 만들어 POST 방식이라고 정의 -> 버튼을 만들기 위해 input 태그 넣음 (제출 버튼) + csrf_token #}
         <form action="/accounts/hello_world/" method="POST">
             {% csrf_token %}
-            <input type="submit" class="btn btn-outline-dark rounded-pill px-5">
+            {# 이 input이 어떤 이름인지 정의해줘야 #}
+            <input type="text" name="input_text">
+            <input type="submit" value="SEND" class="btn btn-outline-dark rounded-pill px-5">
         </form>
 
-        <h3>{{ text }}</h3>
+        {# key 값을 가져오는 것 #}
+        {% for data in data_list %}
+        <h3>{{ data.text }}</h3>
+        {% endfor %}
+
 
     </div>
 
