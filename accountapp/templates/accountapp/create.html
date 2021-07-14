@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{# content라는 이름으로 base.html에서 block을 설정해주었었다. #}
+{% block content %}
+    {# bootstrap에서 제공하는 text-center 속성 #}
+    <div class="text-center">
+        {#  상하좌우 마진 5만큼  #}
+        <div class="m-5">
+            <h4>Sign Up</h4>
+        </div>
+        <div>
+            {#  url을 이용하여 reverse 방식과 같은 방식으로  #}
+            <form action="{% url 'accountapp:create' %}" method="post">
+                {% csrf_token %}
+                {#  UserCreationForm에서 데려온 form 그대로 출력  #}
+                {{ form }}
+                {#  px-5 : x축 방향에 패딩 챙겨주는 속성  #}
+                <div class="m-5">
+                    <input type="submit" class="btn btn-dark rounded-pill px-5">
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
