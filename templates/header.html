@@ -5,7 +5,19 @@
     <div class="pragmatic_header_button">
         <span>nav1</span>
         <span>nav2</span>
-        <span>nav3</span>
-        <span>nav4</span>
+        {#  로그인 되어있지 않다면  #}
+        {% if not user.is_authenticated %}
+        <span>
+            <a href="{% url 'accountapp:login' %}">Login</a>
+        </span>
+        <span>
+            <a href="{% url 'accountapp:create' %}">SignUp</a>
+        </span>
+        {#  로그인 되어있는 상태라면  #}
+        {% else %}
+        <span>
+            <a href="{% url 'accountapp:logout' %}">Logout</a>
+        </span>
+        {% endif %}
     </div>
 </div>

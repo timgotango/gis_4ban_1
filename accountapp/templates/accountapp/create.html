@@ -1,9 +1,11 @@
 {% extends 'base.html' %}
+{# bootstrap4 라이브러리 가져오기 - form 바꾸기 위해 #}
+{% load bootstrap4 %}
 
 {# content라는 이름으로 base.html에서 block을 설정해주었었다. #}
 {% block content %}
-    {# bootstrap에서 제공하는 text-center 속성 #}
-    <div class="text-center">
+    {# bootstrap에서 제공하는 text-center 속성 + bootstrap 좌우 마진 동일 #}
+    <div class="text-center mw-500 m-auto">
         {#  상하좌우 마진 5만큼  #}
         <div class="m-5">
             <h4>Sign Up</h4>
@@ -13,7 +15,7 @@
             <form action="{% url 'accountapp:create' %}" method="post">
                 {% csrf_token %}
                 {#  UserCreationForm에서 데려온 form 그대로 출력  #}
-                {{ form }}
+                {% bootstrap_form form %}
                 {#  px-5 : x축 방향에 패딩 챙겨주는 속성  #}
                 <div class="m-5">
                     <input type="submit" class="btn btn-dark rounded-pill px-5">
