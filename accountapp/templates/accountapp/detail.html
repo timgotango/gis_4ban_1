@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {# bootstrap에서 제공하는 text-center 속성 + max-width + bootstrap 좌우 마진 동일 #}
+    <div class="text-center m-auto">
+        <div class="m-5">
+            {#  views.py에 정의해줬던 target_user 속성 사용  #}
+            <h4>{{ target_user.username }}</h4>
+        </div>
+        <div>
+            {{ target_user.date_joined }}
+        </div>
+    </div>
+
+{% endblock %}
