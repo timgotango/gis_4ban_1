@@ -16,7 +16,7 @@
         {#  로그인 되어있는 상태라면  #}
         {% else %}
         <span>
-            {#  user의 pk를 detail 뒤에 추가해줘야!  #}
+            {#  user의 pk를 추가해줘야!  #}
             <a href="{% url 'accountapp:detail' pk=user.pk %}">MyPage</a>
         </span>
         <span>

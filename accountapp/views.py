@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
-from django.views.generic import CreateView, DetailView
+from django.views.generic import CreateView, DetailView, UpdateView
 
 from accountapp.models import NewModel
 
@@ -32,5 +32,12 @@ class AccountCreateView(CreateView): # 장고의 뷰의 제너릭에서 CreateVi
 
 class AccountDetailView(DetailView):
     model = User # User 객체의 detail을 보는 것이기 때문에
-    context_object_name = 'target_user'         # context_object_name
+    context_object_name = 'target_user'         # key
     template_name = 'accountapp/detail.html'    # 추후에 만들 detail.html
+
+class AccountUpdateView(UpdateView): # 내 정보 수정
+    model = User
+    form_class = UserCreationForm
+    context_object_name = 'target_user'
+    success_url = reverse_lazy('accountapp:hello_world') # 원래는 detail 페이지로 가면 좋지만, 상세 페이지마다 pk가 다르므로 이건 나중에 해보자
+    template_name = 'accountapp/update.html'

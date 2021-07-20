@@ -1,7 +1,7 @@
 from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import path
 
-from accountapp.views import hello_world, AccountCreateView, AccountDetailView
+from accountapp.views import hello_world, AccountCreateView, AccountDetailView, AccountUpdateView
 
 app_name = 'accountapp'              # accountapp 이름을 적어주어 다른 파일에서 라우팅해줄 수 있는 것.
 
@@ -13,4 +13,5 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(), name='logout'),
     path('create/', AccountCreateView.as_view(), name='create'), # create는 없는 것을 만드는 것
     path('detail/<int:pk>', AccountDetailView.as_view(), name='detail'), # 다만 detail은 주소<int:pk>를 넘겨받아야!
+    path('update/<int:pk>', AccountUpdateView.as_view(), name='update'), # 정보 수정이므로 user 키값 받아야.
 ]
