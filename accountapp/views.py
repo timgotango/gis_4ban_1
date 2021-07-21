@@ -9,21 +9,24 @@ from accountapp.forms import AccountCreationForm
 from accountapp.models import NewModel
 
 def hello_world(request):
-    if request.method == "POST": # request 안에 method라는 데이터가 POST 방식이라면,
+    if request.user.is_authenticated: # 로그인이 되어있다면~
+        if request.method == "POST": # request 안에 method라는 데이터가 POST 방식이라면,
 
-        temp = request.POST.get('input_text') # request 안에 있는 POST 데이터 중, input_text 라는 이름을 가져와~~
+            temp = request.POST.get('input_text') # request 안에 있는 POST 데이터 중, input_text 라는 이름을 가져와~~
 
-        new_model = NewModel() # models.py의 NewModel 클래스 객체 생성
-        new_model.text = temp # NewModel 안 text에 input한 것을 넣는 것.
-        new_model.save() # 저장까지 해줘야!
+            new_model = NewModel() # models.py의 NewModel 클래스 객체 생성
+            new_model.text = temp # NewModel 안 text에 input한 것을 넣는 것.
+            new_model.save() # 저장까지 해줘야!
 
-        # 보여지는 작업을 GET 으로 넘겨주기
-        # reverse 함수 : urls.py에서 name 인자를 가져온 후 path로 역으로 가져온다
-        return HttpResponseRedirect(reverse('accountapp:hello_world'))  # Redirect
+            # 보여지는 작업을 GET 으로 넘겨주기
+            # reverse 함수 : urls.py에서 name 인자를 가져온 후 path로 역으로 가져온다
+            return HttpResponseRedirect(reverse('accountapp:hello_world'))  # Redirect
 
-    else: # GET 방식이라면,
-        data_list = NewModel.objects.all()  # NewModel 데이터의 모든 값들
-        return render(request, 'accountapp/hello_world.html', context={'data_list': data_list})
+        else: # GET 방식이라면,
+            data_list = NewModel.objects.all()  # NewModel 데이터의 모든 값들
+            return render(request, 'accountapp/hello_world.html', context={'data_list': data_list})
+    else:
+        return HttpResponseRedirect(reverse('accountapp:login'))
 
 class AccountCreateView(CreateView): # 장고의 뷰의 제너릭에서 CreateView import
     model = User
@@ -43,8 +46,32 @@ class AccountUpdateView(UpdateView): # 내 정보 수정
     success_url = reverse_lazy('accountapp:hello_world') # 원래는 detail 페이지로 가면 좋지만, 상세 페이지마다 pk가 다르므로 이건 나중에 해보자
     template_name = 'accountapp/update.html'
 
+    def get(self, request, *args, **kwargs):    # get 메소드를 override, 로그인 인증 과정 넣어보자
+        if request.user.is_authenticated:
+            return super().get(request, *args, **kwargs)
+        else:
+            return HttpResponseRedirect(reverse('accountapp:login'))
+
+    def post(self, request, *args, **kwargs):    # post 메소드를 override
+        if request.user.is_authenticated:
+            return super().post(request, *args, **kwargs)
+        else:
+            return HttpResponseRedirect(reverse('accountapp:login'))
+
 class AccountDeleteView(DeleteView): # 삭제이므로 form_class 없어도 된다.
     model = User
     context_object_name = 'target_user'
     success_url = reverse_lazy('accountapp:hello_world')
     template_name = 'accountapp/delete.html'
+
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return super().get(request, *args, **kwargs)
+        else:
+            return HttpResponseRedirect(reverse('accountapp:login'))
+
+    def post(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return super().post(request, *args, **kwargs)
+        else:
+            return HttpResponseRedirect(reverse('accountapp:login'))
