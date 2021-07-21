@@ -1,6 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView, DetailView, UpdateView, DeleteView
@@ -47,16 +47,16 @@ class AccountUpdateView(UpdateView): # 내 정보 수정
     template_name = 'accountapp/update.html'
 
     def get(self, request, *args, **kwargs):    # get 메소드를 override, 로그인 인증 과정 넣어보자
-        if request.user.is_authenticated:
+        if request.user.is_authenticated and self.get_object() == request.user: # 파이썬 파일에서 self.get_object 하면 target_user이다.
             return super().get(request, *args, **kwargs)
         else:
-            return HttpResponseRedirect(reverse('accountapp:login'))
+            return HttpResponseForbidden()  # 안된다고 알리기
 
     def post(self, request, *args, **kwargs):    # post 메소드를 override
-        if request.user.is_authenticated:
+        if request.user.is_authenticated and self.get_object() == request.user:
             return super().post(request, *args, **kwargs)
         else:
-            return HttpResponseRedirect(reverse('accountapp:login'))
+            return HttpResponseForbidden()
 
 class AccountDeleteView(DeleteView): # 삭제이므로 form_class 없어도 된다.
     model = User
@@ -64,14 +64,14 @@ class AccountDeleteView(DeleteView): # 삭제이므로 form_class 없어도 된�
     success_url = reverse_lazy('accountapp:hello_world')
     template_name = 'accountapp/delete.html'
 
-    def get(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
+    def get(self, request, *args, **kwargs):  # get 메소드를 override, 로그인 인증 과정 넣어보자
+        if request.user.is_authenticated and self.get_object() == request.user:  # 파이썬 파일에서 self.get_object 하면 target_user이다.
             return super().get(request, *args, **kwargs)
         else:
-            return HttpResponseRedirect(reverse('accountapp:login'))
+            return HttpResponseForbidden()  # 안된다고 알리기
 
-    def post(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
+    def post(self, request, *args, **kwargs):  # post 메소드를 override
+        if request.user.is_authenticated and self.get_object() == request.user:
             return super().post(request, *args, **kwargs)
         else:
-            return HttpResponseRedirect(reverse('accountapp:login'))
+            return HttpResponseForbidden()
