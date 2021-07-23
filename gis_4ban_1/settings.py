@@ -138,11 +138,20 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '/static/'         # 외부 소스들을 가져와 head.html에 넣었었다.
+# client 단에서는 어떻게 static files 들을 가져오는 것일까? /static/base.css 의 형태로.
+# staticfiles_dirs 중에 BASE_DIR 안에 static을 찾겠다~~
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') # 정적인 파일이 저장되는 루트 경로 : 안에 있는 경로를 합치기
 
 STATICFILES_DIRS = [
     BASE_DIR / "static", # 최상위 폴더 안에 static 경로로서 인식하겠다 / ctrl b 누르면 소스코드 출처 볼 수 있다.
 ]
+
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
