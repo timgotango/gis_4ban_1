@@ -7,11 +7,12 @@ from django.urls import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, DetailView, UpdateView, DeleteView
 
+from accountapp.decorators import acount_ownership_required, account_ownership_required
 from accountapp.forms import AccountCreationForm
 from accountapp.models import NewModel
 
-@login_required(login_url=reverse_lazy('accountapp:login'))
-# 장고에서 제공해주는 데코레이터(account/login으로 알아서 가준다 하지만 다르게 했다면, login_url로 redirect 가능!!)
+@login_required
+# 장고에서 제공해주는 데코레이터(account/login으로 알아서 가준다. 하지만 다르게 했다면, login_url=''로 redirect 가능!!)
 def hello_world(request):
     if request.method == "POST": # request 안에 method라는 데이터가 POST 방식이라면,
 
@@ -40,9 +41,11 @@ class AccountDetailView(DetailView):
     context_object_name = 'target_user'         # key
     template_name = 'accountapp/detail.html'    # 추후에 만들 detail.html
 
-# class 안에 있는 함수이므로 '메소드'이다. 따라서 메소드용 함수를 만들지, 또는 decorator 자체를 변환할지 정해야. 우린 후자로.
-@method_decorator(login_required, 'get')    # method_decorator로 decorator 메소드용으로도 사용 가능하게 해주는 데코레이터 적용. :get 메소드에 적용하겠다.
-@method_decorator(login_required, 'post')    # pot 메소드에 적용하겠다.
+
+has_ownership = [login_required, account_ownership_required]
+
+@method_decorator(has_ownership, 'get')
+@method_decorator(has_ownership, 'post')
 class AccountUpdateView(UpdateView): # 내 정보 수정
     model = User
     form_class = AccountCreationForm
@@ -50,8 +53,8 @@ class AccountUpdateView(UpdateView): # 내 정보 수정
     success_url = reverse_lazy('accountapp:hello_world') # 원래는 detail 페이지로 가면 좋지만, 상세 페이지마다 pk가 다르므로 이건 나중에 해보자
     template_name = 'accountapp/update.html'
 
-@method_decorator(login_required, 'get')    # get 메소드에 적용하겠다.
-@method_decorator(login_required, 'post')    # pot 메소드에 적용하겠다.
+@method_decorator(has_ownership, 'get')
+@method_decorator(has_ownership, 'post')
 class AccountDeleteView(DeleteView): # 삭제이므로 form_class 없어도 된다.
     model = User
     context_object_name = 'target_user'
