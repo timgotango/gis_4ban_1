@@ -7,5 +7,4 @@ app_name = 'profileapp'     # 이렇게 app_name 설정해주어야 나중에 'p
 urlpatterns = [
     path('create/', ProfileCreateView.as_view(), name='create'),
 
-
 ]
