@@ -1,10 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    {# bootstrap에서 제공하는 text-center 속성 + max-width + bootstrap 좌우 마진 동일 #}
     <div class="text-center mx-500 m-auto">
         <div class="m-5">
-            {#  유저의 프로필이 있다면~      #}
+            {#  유저의 프로필이 있다면~  #}
             {% if target_user.profile %}
             {#  views.py에 정의해줬던 target_user 속성 사용  #}
                 <img src="{{ target_user.profile.image.url }}"
