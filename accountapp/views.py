@@ -36,6 +36,9 @@ class AccountCreateView(CreateView): # 장고의 뷰의 제너릭에서 CreateVi
     success_url = reverse_lazy('accountapp:hello_world') # 함수가 아니라 클래스에서 사용하기 때문에 reverse_lazy 사용
     template_name = 'accountapp/create.html' # 곧 만들 create.html
 
+    # def get_success_url(self):
+    #     return reverse('accountapp:detail', self.object.pk) # accountapp이므로 바로 object.pk
+
 class AccountDetailView(DetailView):
     model = User # User 객체의 detail을 보는 것이기 때문에
     context_object_name = 'target_user'         # key
@@ -50,8 +53,11 @@ class AccountUpdateView(UpdateView): # 내 정보 수정
     model = User
     form_class = AccountCreationForm
     context_object_name = 'target_user'
-    success_url = reverse_lazy('accountapp:hello_world') # 원래는 detail 페이지로 가면 좋지만, 상세 페이지마다 pk가 다르므로 이건 나중에 해보자
+    # success_url = reverse_lazy('accountapp:hello_world') # 원래는 detail 페이지로 가면 좋지만, 상세 페이지마다 pk가 다르므로 이건 나중에 해보자
     template_name = 'accountapp/update.html'
+
+    def get_success_url(self):
+        return reverse('accountapp:detail', kwargs={'pk': self.object.pk}) # accountapp이므로 바로 object.pk
 
 @method_decorator(has_ownership, 'get')
 @method_decorator(has_ownership, 'post')
