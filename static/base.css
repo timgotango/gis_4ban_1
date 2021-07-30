@@ -33,3 +33,18 @@
 
 .NNS_B {
     font-family: "NanumSquareB", cursive;
+}
+
+.round_button {
+    color: black;
+    /*밑줄 없애기*/
+    text-decoration: none;
+    /*박스 그림자*/
+    box-shadow: 0 0 3px dimgray;
+    border-radius: 20rem;
+    padding: 0.2rem;
+}
+/*css 선택자 : hover 했을 때!*/
+.round_button:hover {
+    color: dimgray;
+}

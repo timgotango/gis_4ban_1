@@ -30,7 +30,7 @@ class ProfileUpdateView(UpdateView):
     model = Profile
     form_class = ProfileCreationForm
     context_object_name = 'target_profile' # html에서 어떻게 부를것인지
-    success_url = reverse_lazy('accountapp:hello_world')
+    # success_url = reverse_lazy('accountapp:hello_world')
     template_name = 'profileapp/update.html'
     
     def get_success_url(self):
