@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 
-{% include 'head.html' %} <!-- head 태그 부분 head.html에 있다-->
+{% include 'head.html' %}
 
 <body style="font-family: 'NanumSquareR'">
 
 {% include 'header.html' %}
 <hr>
 
-<!--block으로 만든 공간만 hello_world.html에서 바꿀 수 있도록!!-->
 {% block content %}
 {% endblock %}
 
