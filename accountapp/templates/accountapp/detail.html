@@ -26,16 +26,13 @@
             </h2>
             {% endif %}
         </div>
-        <div>
-            {{ target_user.date_joined }}
-        </div>
         {#  user와 target_user(서버에서 빼낸 Account 객체)가 같다면 회원정보 수정, 탈퇴 버튼 보이게끔  #}
         {% if user == target_user %}
         <div>
-            <a href="{% url 'accountapp:update' pk=target_user.pk %}">Update Info</a>
-        </div>
-        <div>
-            <a href="{% url 'accountapp:delete' pk=target_user.pk %}">Quit</a>
+            <a href="{% url 'accountapp:update' pk=target_user.pk %}"
+            class="material-icons round_button mx-1">settings</a>
+            <a href="{% url 'accountapp:delete' pk=target_user.pk %}"
+            class="material-icons round_button mx-1">close</a>
         </div>
         {% endif %}
     </div>

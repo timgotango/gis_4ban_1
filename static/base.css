@@ -42,7 +42,7 @@
     /*박스 그림자*/
     box-shadow: 0 0 3px dimgray;
     border-radius: 20rem;
-    padding: 0.2rem;
+    padding: 0.3rem;
 }
 /*css 선택자 : hover 했을 때!*/
 .round_button:hover {
