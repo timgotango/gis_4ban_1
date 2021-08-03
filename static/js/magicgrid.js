@@ -283,3 +283,12 @@ let magicGrid = new MagicGrid({
 });
 
 magicGrid.listen();
+
+// 벽돌식 레이아웃 만들기 위한 java 코드
+var masonrys = document.getElementsByTagName('img')
+// img 개수만큼 반복
+for (let i=0; masonrys.length; i++) {
+  masonrys[i].addEventListener('load', function () {
+    magicGrid.positionItems();
+  }, false )
+}
