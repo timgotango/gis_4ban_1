@@ -53,4 +53,4 @@ class ArticleListView(ListView):
     model = Article
     context_object_name = 'article_list'    # article 단일 객체가 아니라 뭉치를 담아야 하므로!
     template_name = 'articleapp/list.html'
-    paginate_by = 20
+    paginate_by = 2
