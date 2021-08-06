@@ -44,4 +44,13 @@
     {# snippets : 코드 조각을 의미  #}
     {% include 'snippets/pagination.html' %}
 
+    <div class="text-center my-5">
+        <a href="{% url 'articleapp:create' %}" class="btn btn-dark rounded-pill material-icons">
+            brush
+        </a>
+        <a href="{% url 'articleapp:create' %}" class="btn btn-outline-dark rounded-pill px-5">
+            Create Article
+        </a>
+    </div>
+
 {% endblock %}
