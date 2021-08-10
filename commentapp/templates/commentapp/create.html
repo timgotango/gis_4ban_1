@@ -8,6 +8,12 @@
             <form action="{% url 'commentapp:create' %}" method="post">
                 {% csrf_token %}
                 {% bootstrap_form form %}
+
+                {# article의 고유값 전송하면 이를 서버에서 읽는다  #}
+                <input type="hidden"
+                       name="article_pk"
+                       value="{{ target_article.pk }}">
+                
                 <div class="m-5">
                     <input type="submit" class="btn btn-dark rounded-pill px-5">
                 </div>
