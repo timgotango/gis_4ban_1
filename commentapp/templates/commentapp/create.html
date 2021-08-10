@@ -1,10 +1,8 @@
-{% extends 'base.html' %}
 {% load bootstrap4 %}
 
-{% block content %}
     <div class="text-center mw-500 m-auto">
         <div class="m-5">
-            <h4>Create Comment</h4>
+            <h4>댓글 작성하기</h4>
         </div>
         <div>
             <form action="{% url 'commentapp:create' %}" method="post">
@@ -16,4 +14,3 @@
             </form>
         </div>
     </div>
-{% endblock %}
