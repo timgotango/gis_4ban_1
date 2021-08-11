@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 # Create your views here.
 from django.urls import reverse
-from django.views.generic import CreateView
+from django.views.generic import CreateView, DeleteView
 
 from articleapp.models import Article
 from commentapp.forms import CommentCreationForm
@@ -20,4 +20,13 @@ class CommentCreateView(CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):  # 그냥 success_url 인자로만은 하나의 페이지로밖에 못가기 때문!
+        return reverse('articleapp:detail', kwargs={'pk': self.object.article.pk})
+
+
+class CommentDeleteView(DeleteView):
+    model = Comment
+    context_object_name = 'target_comment'
+    template_name = 'commentapp/delete.html'
+
+    def get_success_url(self):
         return reverse('articleapp:detail', kwargs={'pk': self.object.article.pk})
