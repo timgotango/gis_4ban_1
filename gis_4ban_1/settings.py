@@ -43,7 +43,7 @@ SECRET_KEY = env_list['SECRET_KEY'] # 나중에 dictionary 만들 것이다.
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
