@@ -6,10 +6,13 @@ from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, DetailView, UpdateView, DeleteView
+from django.views.generic.list import MultipleObjectMixin
 
 from accountapp.decorators import account_ownership_required
 from accountapp.forms import AccountCreationForm
 from accountapp.models import NewModel
+from articleapp.models import Article
+
 
 @login_required
 # 장고에서 제공해주는 데코레이터(account/login으로 알아서 가준다. 하지만 다르게 했다면, login_url=''로 redirect 가능!!)
@@ -39,10 +42,14 @@ class AccountCreateView(CreateView): # 장고의 뷰의 제너릭에서 CreateVi
     # def get_success_url(self):
     #     return reverse('accountapp:detail', self.object.pk) # accountapp이므로 바로 object.pk
 
-class AccountDetailView(DetailView):
+class AccountDetailView(DetailView, MultipleObjectMixin):
     model = User # User 객체의 detail을 보는 것이기 때문에
     context_object_name = 'target_user'         # key
     template_name = 'accountapp/detail.html'    # 추후에 만들 detail.html
+    paginate_by = 20
+    def get_context_data(self, **kwargs):
+        article_list = Article.objects.filter(writer=self.object)
+        return super().get_context_data(object_list=article_list, **kwargs)
 
 
 has_ownership = [login_required, account_ownership_required]
