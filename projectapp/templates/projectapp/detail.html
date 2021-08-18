@@ -13,4 +13,9 @@
         </div>
     </div>
 
+    <div>
+        {#  article list를 object list로 치환!  #}
+        {% include 'snippets/list_fragment.html' with article_list=object_list %}
+    </div>
+
 {% endblock %}
