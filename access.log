@@ -1,0 +1,3 @@
+10.0.0.2 - - [29/Sep/2021:08:57:12 +0000] "GET /projects/list/ HTTP/1.1" 200 4090 "http://3.35.19.73/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36"
+10.0.0.2 - - [29/Sep/2021:08:57:13 +0000] "GET /media/project/%EB%82%98.jpg HTTP/1.1" 200 42278 "http://3.35.19.73/projects/list/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36"
+10.0.0.2 - - [29/Sep/2021:08:57:21 +0000] "GET /subscribe/list/ HTTP/1.1" 200 3923 "http://3.35.19.73/projects/list/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36"
