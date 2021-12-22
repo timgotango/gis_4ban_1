@@ -32,7 +32,6 @@
     <div class="container my-4">
 
         {% for article in article_list %}
-
             <div>
                 {#  article을 가져오기 위해  #}
                 <a href="{% url 'articleapp:detail' pk=article.pk %}">
